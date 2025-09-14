@@ -5,4 +5,4 @@
 // Cloud Function, a Node.js server, etc.) where the API key can be stored safely as an environment variable.
 // The client-side application would then make a request to YOUR server, which in turn would call the Gemini API.
 
-const GEMINI_API_KEY = "AIzaSyACNEAu-YtvtG2YIlzEgcJ6XjLw2ux5Z74";
+const GEMINI_API_KEY = "AIzaSyBUonc68w9YhbqZOjeHlkTDDWhcZmPqlTI";
