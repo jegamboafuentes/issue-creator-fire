@@ -1,6 +1,9 @@
-name: Deploy to Firebase Hosting
+name: Firebase Hosting CI
+
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -12,9 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm i -g firebase-tools
+
+      # Preview for PRs
+      - name: Deploy preview channel
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          channelId: pr-${{ github.event.pull_request.number }}
+          expires: 7d
+          projectId: issue-creator-firebase-v1
+
+      # Live deploy on push to main
       - name: Deploy to live
+        if: ${{ github.event_name == 'push' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           channelId: live
-          projectId: issue-creator-fire
+          projectId: issue-creator-firebase-v1
